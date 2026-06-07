@@ -1,0 +1,19 @@
+CREATE DATABASE TestCompany2026
+USE TestCompany2026
+
+CREATE TABLE TestEmployee 
+(
+ID INT IDENTITY(1, 1) PRIMARY KEY, 
+FirstName NVARCHAR(256) NOT NULL,
+LastName NVARCHAR(256) NOT NULL,
+Salary Decimal(10, 2) CONSTRAINT Sal_chk CHECK (Salary > 500),
+Email NVARCHAR(256) UNIQUE,
+HireDate DATE,
+DepartmentID INT NOT NULL
+)
+
+CREATE TABLE TestDepartment 
+(
+ID INT PRIMARY KEY,
+Name VARCHAR(100)
+)
