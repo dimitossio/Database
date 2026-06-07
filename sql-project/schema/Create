@@ -1,6 +1,13 @@
 CREATE DATABASE TestCompany2026
 USE TestCompany2026
 
+
+CREATE TABLE TestDepartment 
+(
+ID INT IDENTITY(1, 1) PRIMARY KEY,
+Name VARCHAR(100)
+)
+
 CREATE TABLE TestEmployee 
 (
 ID INT IDENTITY(1, 1) PRIMARY KEY, 
@@ -9,11 +16,7 @@ LastName NVARCHAR(256) NOT NULL,
 Salary Decimal(10, 2) CONSTRAINT Sal_chk CHECK (Salary > 500),
 Email NVARCHAR(256) UNIQUE,
 HireDate DATE,
-DepartmentID INT NOT NULL
-)
-
-CREATE TABLE TestDepartment 
-(
-ID INT PRIMARY KEY,
-Name VARCHAR(100)
+DepartmentID INT NOT NULL,
+CONSTRAINT Depart_ID
+FOREIGN KEY (DepartmentID) REFERENCES TestEmployee(ID)
 )
