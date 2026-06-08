@@ -2,21 +2,110 @@ CREATE DATABASE TestCompany2026
 USE TestCompany2026
 
 
-CREATE TABLE TestDepartment 
-(
-ID INT IDENTITY(1, 1) PRIMARY KEY,
-Name VARCHAR(100)
+
+CREATE TABLE Department (
+ID SMALLINT IDENTITY(1, 1) PRIMARY KEY,
+DepartmentName VARCHAR(256) UNIQUE NOT NULL,
+Budget DECIMAL(20, 2),
+Country VARCHAR(100),
+City VARCHAR(100),
+Phone NVARCHAR(15),
+CreationDate DATE NOT NULL
 )
 
-CREATE TABLE TestEmployee 
-(
-ID INT IDENTITY(1, 1) PRIMARY KEY, 
-FirstName NVARCHAR(256) NOT NULL,
-LastName NVARCHAR(256) NOT NULL,
-Salary Decimal(10, 2) CONSTRAINT Sal_chk CHECK (Salary > 500),
-Email NVARCHAR(256) UNIQUE,
+
+
+CREATE TABLE Employees (
+EmployeeID INT IDENTITY(1, 1) PRIMARY KEY,
+FirstName VARCHAR(50) NOT NULL,
+LastName VARCHAR(50) NOT NULL,
+BirthDate DATE,
+CONSTRAINT CK_Employees_BirthDate
+CHECK(BirthDate <= DATEADD(YEAR, -18, GETDATE())),
+Gender VARCHAR(1) CHECK (Gender IN ('M', 'F')),
+Email NVARCHAR(150) UNIQUE NOT NULL,
+Phone VARCHAR(15) UNIQUE NOT NULL,
+Address VARCHAR(150) NOT NULL,
 HireDate DATE,
-DepartmentID INT NOT NULL,
-CONSTRAINT Depart_ID
-FOREIGN KEY (DepartmentID) REFERENCES TestEmployee(ID)
+Salary DECIMAL(10, 2) CHECK(Salary > 0),
+Bonus DECIMAL(10, 2),
+Position VARCHAR(256),
+DepartmentID SMALLINT,
+CONSTRAINT FK_Department_ID
+FOREIGN KEY (DepartmentID)
+REFERENCES dbo.Department(ID),
+ManagerID INT NULL,
+CONSTRAINT FK_Employee_Manager
+FOREIGN KEY (ManagerID)
+REFERENCES Employees(EmployeeID)
 )
+
+
+
+CREATE TABLE Projects (
+ProjectID INT IDENTITY(1, 1) PRIMARY KEY,
+ProjectName VARCHAR(100) NOT NULL,
+Description VARCHAR(256),
+StartDate DATE DEFAULT GETDATE(),
+EndDate DATE DEFAULT GETDATE(),
+Budget DECIMAL(20, 2),
+Status VARCHAR(15) CHECK (Status IN ('Started', 'In Process', 'Finished')),
+DepartmentID SMALLINT FOREIGN KEY (DepartmentID) REFERENCES dbo.Department(ID)
+)
+
+CREATE TABLE EmployeeProjects (
+EmployeeID INT FOREIGN KEY (EmployeeID) REFERENCES dbo.Employees(EmployeeID),
+ProjectID INT FOREIGN KEY (ProjectID) REFERENCES dbo.Projects(ProjectID),
+RoleInProject VARCHAR(100),
+AssignedDate DATE DEFAULT GETDATE(),
+HoursPerWeek VARCHAR(4),
+)
+
+
+CREATE TABLE Tasks (
+TaskID INT IDENTITY(1, 1) PRIMARY KEY,
+TaskName VARCHAR(100) NOT NULL,
+Description VARCHAR(100),
+Priority VARCHAR(10) CHECK (Priority IN ('Low', 'Medium', 'High')),
+Status VARCHAR(15) CHECK (Status IN ('Started', 'In Process', 'Finished')),
+CreateDate DATE DEFAULT GETDATE(),
+Deadline DATE,
+ProjectID INT FOREIGN KEY (ProjectID) REFERENCES dbo.Projects(ProjectID),
+AssignedEmployeeID INT FOREIGN KEY (AssignedEmployeeID) REFERENCES dbo.Employees(EmployeeID),
+)
+
+CREATE TABLE Clients (
+ClientID INT IDENTITY(1, 1) PRIMARY KEY,
+CompanyName VARCHAR(100) NOT NULL,
+Industry VARCHAR(50),
+Country VARCHAR(100) NOT NULL,
+City VARCHAR(100) NOT NULL,
+Phone VARCHAR(15) NOT NULL,
+Email NVARCHAR(100) UNIQUE NOT NULL
+)
+
+
+CREATE TABLE Contracts (
+ContractID INT IDENTITY(1, 1) PRIMARY KEY,
+ClientID INT FOREIGN KEY (ClientID) REFERENCES dbo.Clients(ClientID),
+ProjectID INT FOREIGN KEY (ProjectID) REFERENCES dbo.Projects(ProjectID),
+ContractValue DECIMAL(20, 2) NOT NULL,
+SignDate DATE DEFAULT GETDATE(),
+EndDate DATE,
+Status VARCHAR(20) CHECK (Status IN ('Draft', 'Active', 'Paused', 'Completed', 'Cancelled'))
+)
+
+
+CREATE TABLE Payroll (
+PayrollID INT IDENTITY(1, 1) PRIMARY KEY,
+EmployeeID INT FOREIGN KEY (EmployeeID) REFERENCES dbo.Employees(EmployeeID),
+Month SMALLINT NOT NULL CHECK (Month BETWEEN 1 AND 12),
+Year SMALLINT NOT NULL,
+BaseSalary DECIMAL(10, 2) NOT NULL,
+Bonus DECIMAL(10, 2) DEFAULT 0,
+Tax DECIMAL(10, 2) DEFAULT 0.22,
+FinalSalary AS ((BaseSalary + Bonus) * (1 - Tax))
+)
+
+
+
