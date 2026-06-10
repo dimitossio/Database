@@ -1,30 +1,153 @@
-INSERT INTO TestDepartment(Name)
+INSERT INTO dbo.Department (DepartmentName, Budget, Country, City, Phone, CreationDate)
 VALUES
-	('IT'),
-	('Finances'),
-	('Marketing'),
-	('HR')
+	(N'IT', 500000, 'Georgia', 'Tbilisi', '555111222', '2024-01-01'),
+	(N'HR', 100000, 'Georgia', 'Tbilisi', '555111333', '2024-01-03'),
+	(N'Marketing', 200000, 'Georgia', 'Tbilisi', '555111444', '2024-01-05'),
+	(N'DevOps', 100000, 'Georgia', 'Tbilisi', '555111555', '2024-03-07'),
+	(N'QA', 100000, 'Georgia', 'Tbilisi', '555111777', '2024-04-08')
 
-INSERT INTO dbo.TestEmployee (FirstName, LastName, Salary, Email, HireDate, DepartmentID)
-VALUES 
-(N'გენადი',N'ახვლედიანი',3400,'gena.axvled002@gmail.com','2021-04-10',1),
-(N'გენადი',N'ახვლედიანი',3400,'gena1@gmail.com','2021-04-10',3),
-(N'დავითი',N'ბერიძე',3800,'davit2@gmail.com','2021-05-12',4),
-(N'ნიკა',N'გელაშვილი',4200,'nika3@gmail.com','2021-06-15',2),
-(N'გიორგი',N'მაისურაძე',3100,'giorgi4@gmail.com','2021-07-20',2),
-(N'ლევანი',N'კობახიძე',5000,'levani5@gmail.com','2021-08-01',3),
-(N'ირაკლი',N'კვარაცხელია',4500,'irakli6@gmail.com','2021-09-10',1),
-(N'თემური',N'ჯაფარიძე',3300,'temuri7@gmail.com','2021-10-05',1),
-(N'ზურაბი',N'ხუციშვილი',3700,'zurabi8@gmail.com','2021-11-18',1),
-(N'გოჩა',N'მეგრელიშვილი',2900,'gocha9@gmail.com','2021-12-02',4),
-(N'ალექსანდრე',N'ცინცაძე',4100,'alex10@gmail.com','2022-01-14',3),
-(N'მიხეილ',N'ბუცხრიკიძე',4700,'misha11@gmail.com','2022-02-11',2),
-(N'ვახტანგ',N'აბულაძე',3600,'vakho12@gmail.com','2022-03-08',2),
-(N'საბა',N'ჭანტურია',3400,'saba13@gmail.com','2022-04-19',3),
-(N'ლაშა',N'გოგუაძე',5200,'lasha14@gmail.com','2022-05-25',1),
-(N'ბექა',N'კილაძე',3900,'beka15@gmail.com','2022-06-30',1),
-(N'შოთა',N'მელაძე',4300,'shota16@gmail.com','2022-07-17',4),
-(N'არჩილი',N'ხიზანიშვილი',3500,'archil17@gmail.com','2022-08-23',1),
-(N'რევაზი',N'კუპრაძე',4600,'revaz18@gmail.com','2022-09-29',2),
-(N'ოთარი',N'ჩხაიძე',3200,'otar19@gmail.com','2022-10-15',3),
-(N'გივი',N'კალანდაძე',4000,'givi20@gmail.com','2022-11-21',1)
+SELECT * FROM dbo.Employees
+
+
+
+INSERT INTO Employees (FirstName, LastName, BirthDate, Gender, Email,
+Phone, Address, HireDate, Salary, Bonus, Position, DepartmentID)
+VALUES ('David', 'Aghmashenebeli', '2002-02-02', 'M', 'david@gmail.com',
+'555321123', 'Chavchavadze 43' , '2022-04-07', 8000, 500, 'Automatisation Specialist', 1)
+
+INSERT INTO Clients (CompanyName, Industry, Country, City, Phone, Email)
+VALUES
+('TechCorp', 'IT', 'Tbilisi', 'Georgia', '555123456', 'contact@techcorp.com'),
+('BuildIt', 'Construction', 'Germany', 'Berlin', '555234567', 'info@buildit.com');
+
+UPDATE dbo.Employees
+SET LastName = 'Tokhadze' WHERE EmployeeID = '18'
+
+
+INSERT INTO Employees
+(FirstName, LastName, BirthDate, Gender, Email,
+Phone, Address, HireDate, Salary, Bonus, Position, DepartmentID)
+VALUES
+('David','Aghmashenebeli','2000-01-10','M','e1@mail.com','1001','Tbilisi','2022-01-01',8000,500,'Dev',1),
+('Nika','Kvartaliani','1999-02-11','M','e2@mail.com','1002','Tbilisi','2022-02-01',7000,400,'Dev',1),
+('Ana','Aghmashenebeli','1998-03-12','F','e3@mail.com','1003','Tbilisi','2022-03-01',6000,300,'QA',1),
+('Giorgi','Gogadze','1997-04-13','M','e4@mail.com','1004','Batumi','2022-04-01',5000,200,'HR',2),
+('Luka','Dolidze','1996-05-14','M','e5@mail.com','1005','Kutaisi','2022-05-01',4500,200,'HR',2),
+('Mari','Kapanadze','1995-06-15','F','e6@mail.com','1006','Tbilisi','2022-06-01',5500,250,'HR',2),
+('Saba','Papidze','1994-07-16','M','e7@mail.com','1007','Tbilisi','2022-07-01',6500,350,'DevOps',1),
+('Irakli','Gogokhia','1993-08-17','M','e8@mail.com','1008','Batumi','2022-08-01',7200,450,'DevOps',1),
+('Goga','Lomidze','1992-09-18','M','e9@mail.com','1009','Tbilisi','2022-09-01',4800,150,'Marketing',3),
+('Tako','Nikuradze','1991-10-19','F','e10@mail.com','1010','Tbilisi','2022-10-01',4700,150,'Marketing',3),
+('Lasha','Zarandia','1990-11-20','M','e11@mail.com','1011','Kutaisi','2022-11-01',5100,200,'Marketing',3),
+('Zura','Zurabishvili','1989-12-21','M','e12@mail.com','1012','Tbilisi','2023-01-01',5300,200,'Dev',1),
+('Gio','Tavberidze','1988-01-22','M','e13@mail.com','1013','Batumi','2023-02-01',5400,220,'Dev',1),
+('Nino','Tokhadze','1987-02-23','F','e14@mail.com','1014','Tbilisi','2023-03-01',5600,250,'QA',1),
+('Vako','Tevzadze','1986-03-24','M','e15@mail.com','1015','Kutaisi','2023-04-01',5800,300,'QA',1);
+
+
+
+INSERT INTO Clients
+(CompanyName, Industry, Country, City, Phone, Email)
+VALUES
+('TechCorp','IT','Georgia','Tbilisi','2001','c1@mail.com'),
+('BuildIt','Construction','Germany','Berlin','2002','c2@mail.com'),
+('SoftLab','IT','USA','NY','2003','c3@mail.com'),
+('GeoBank','Finance','Georgia','Tbilisi','2004','c4@mail.com'),
+('EduSoft','Education','UK','London','2005','c5@mail.com'),
+('MedCorp','Health','France','Paris','2006','c6@mail.com'),
+('AutoSys','Automotive','Germany','Munich','2007','c7@mail.com'),
+('FoodNet','Food','Italy','Rome','2008','c8@mail.com'),
+('TravelGo','Tourism','Spain','Madrid','2009','c9@mail.com'),
+('GreenEnergy','Energy','USA','LA','2010','c10@mail.com'),
+('CyberSec','Security','Israel','Tel Aviv','2011','c11@mail.com'),
+('CloudNine','Cloud','USA','SF','2012','c12@mail.com'),
+('DataMind','AI','Canada','Toronto','2013','c13@mail.com'),
+('RetailPro','Retail','Poland','Warsaw','2014','c14@mail.com'),
+('LogiTrans','Logistics','Turkey','Istanbul','2015','c15@mail.com');
+
+
+INSERT INTO Projects (ProjectName, Description, Budget, Status, DepartmentID)
+VALUES
+('CRM','Client system',100000,'Started',1),
+('ERP','Enterprise system',200000,'In Process',1),
+('HR System','HR platform',50000,'Started',2),
+('Marketing AI','Ads system',80000,'In Process',3),
+('E-commerce','Shop system',120000,'Started',1),
+('Bank App','Finance system',300000,'Started',1),
+('Delivery App','Logistics app',90000,'In Process',1),
+('Game Backend','Backend service',110000,'Started',1),
+('Analytics','Data platform',140000,'In Process',1),
+('Cloud Platform','Infra system',250000,'Started',1),
+('Cyber Tool','Security system',95000,'Started',1),
+('Edu Platform','Learning system',70000,'In Process',2),
+('Medical App','Health system',85000,'Started',2),
+('Retail System','Shop backend',65000,'Started',3),
+('AI Chatbot','NLP system',160000,'In Process',1);
+
+INSERT INTO EmployeeProjects (EmployeeID, ProjectID, RoleInProject, HoursPerWeek)
+VALUES
+(1,1,'Dev','40'),
+(2,1,'Dev','35'),
+(3,2,'QA','30'),
+(4,3,'HR','20'),
+(5,3,'HR','25'),
+(6,4,'HR','20'),
+(7,5,'DevOps','40'),
+(8,6,'DevOps','40'),
+(9,7,'Marketing','30'),
+(10,7,'Marketing','25'),
+(11,8,'Marketing','20'),
+(12,9,'Dev','40'),
+(13,10,'Dev','40'),
+(14,11,'QA','30')
+
+
+
+INSERT INTO Tasks
+(TaskName, Description, Priority, Status, Deadline, ProjectID, AssignedEmployeeID)
+VALUES
+('API','Build API','High','Started','2026-07-01',1,5),
+('UI','Frontend','Medium','In Process','2026-07-10',1,6),
+('DB','Database','High','Started','2026-07-05',2,9),
+('HR Logic','HR rules','Medium','Started','2026-07-12',3,4),
+('Ads','Marketing','Low','Started','2026-07-15',4,9),
+('Payments','Finance','High','In Process','2026-07-20',6,10),
+('Delivery API','Backend','High','Started','2026-07-25',7,7),
+('Game server','Backend','High','Started','2026-07-30',8,8),
+('Analytics','Data','Medium','In Process','2026-08-01',9,12),
+('Cloud infra','DevOps','High','Started','2026-08-05',10,13),
+('Security','Cyber','High','Started','2026-08-10',11,14)
+
+
+INSERT INTO Contracts (ClientID, ProjectID, ContractValue, Status)
+VALUES
+(1,1,200000,'Active'),
+(2,2,150000,'Draft'),
+(3,3,80000,'Active'),
+(4,4,90000,'Paused'),
+(5,5,120000,'Active'),
+(6,6,300000,'Active'),
+(7,7,95000,'Draft'),
+(8,8,110000,'Active'),
+(9,9,140000,'Active'),
+(10,10,250000,'Active');
+
+
+INSERT INTO Payroll (EmployeeID, Month, Year, BaseSalary, Bonus, Tax)
+VALUES
+(4,6,2026,8000,500,0.22),
+(5,6,2026,7000,400,0.22),
+(6,6,2026,6000,300,0.22),
+(7,6,2026,5000,200,0.22),
+(8,6,2026,4500,200,0.22),
+(9,6,2026,5500,250,0.22),
+(10,6,2026,6500,350,0.22),
+(11,6,2026,7200,450,0.22),
+(12,6,2026,4800,150,0.22),
+(13,6,2026,4700,150,0.22),
+(14,6,2026,5100,200,0.22),
+(15,6,2026,5300,200,0.22),
+(16,6,2026,5400,220,0.22),
+(17,6,2026,5600,250,0.22),
+(18,6,2026,5800,300,0.22);
+
